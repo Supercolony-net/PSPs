@@ -34,9 +34,10 @@ Substrate's [`contracts` pallet](https://github.com/paritytech/substrate/tree/ma
 
 ## Specification
 1. [Interfaces](#Interfaces)
-2. [Events](#Events)
-3. [Types](#Types)
-4. [Errors](#Errors)
+2. [Extension](#Extension)
+3. [Events](#Events)
+4. [Types](#Types)
+5. [Errors](#Errors)
 
 ### Interfaces
 
@@ -491,6 +492,92 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
       "Result"
     ],
     "type": 2
+  },
+  "selector": "" // TO UPDATE WHEN PSP NUMBER
+}
+```
+
+### Extension
+
+#### PSP30Metadata
+
+`PSP30Metadata` is an optional interface for metadata for this Non-Fungible Token standard.
+
+##### **name**() ➔ Option<String>
+Selector: `` - first 4 bytes of `blake2b_256("")`
+```json
+{
+  "args": [],
+  "docs": [
+    "Returns the token name."
+  ],
+  "mutates": false,
+  "name": [
+    "PSP30Metadata",
+    "name"
+  ],
+  "returnType": {
+    "displayName": [
+      "Option"
+    ],
+    "type": "Option<string>"
+  },
+  "selector": "" // TO UPDATE WHEN PSP NUMBER
+}
+```
+
+##### **symbol**() ➔ Option<String>
+Selector: `` - first 4 bytes of `blake2b_256("")`
+```json
+{
+  "args": [],
+  "docs": [
+    "Returns the token symbol."
+  ],
+  "mutates": false,
+  "name": [
+    "PSP22Metadata",
+    "symbol"
+  ],
+  "returnType": {
+    "displayName": [
+      "Option"
+    ],
+    "type": "Option<string>"
+  },
+  "selector": "" // TO UPDATE WHEN PSP NUMBER
+}
+```
+
+##### **uri**(id: Id) ➔ Option<String>
+Selector: `0x7271b782` - first 4 bytes of `blake2b_256("PSP22Metadata::token_decimals")`
+```json
+{
+  "args": [
+    {
+      "name": "id",
+      "type": {
+        "displayName": [
+           "Id"
+        ],
+        "type": "Id"
+      }
+    }
+  ],
+  "docs": [
+    " Returns the Uniform Resource Identifier (URI) for `id` token."
+  ],
+  "mutates": false,
+  "name": [
+    "PSP30Metadata",
+    "uri"
+  ],
+  "payable": false,
+  "returnType": {
+    "displayName": [
+      "Option"
+    ],
+    "type": "Option<string>"
   },
   "selector": "" // TO UPDATE WHEN PSP NUMBER
 }
