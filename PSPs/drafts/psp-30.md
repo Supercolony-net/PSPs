@@ -291,7 +291,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 }
 ```
 
-##### **transfer**(to: AccountId, id: Id, data: Vec<u8>) ➔ Result<(), PSP30Error>
+##### **transfer**(to: AccountId, id: Id, data: [u8]) ➔ Result<(), PSP30Error>
 Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
@@ -353,7 +353,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 }
 ```
 
-##### **transfer_from**(from: AccountId, to: AccountId, id: Id, data: Vec<u8>) ➔ Result<(), PSP30Error>
+##### **transfer_from**(from: AccountId, to: AccountId, id: Id, data: [u8]) ➔ Result<(), PSP30Error>
 Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
