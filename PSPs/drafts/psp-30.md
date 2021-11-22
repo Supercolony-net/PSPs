@@ -504,7 +504,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 `PSP30Metadata` is an optional interface for metadata for this Non-Fungible Token standard.
 
 ##### **name**() ➔ Option<String>
-Selector: `` - first 4 bytes of `blake2b_256("")`
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
   "args": [],
@@ -527,7 +527,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")`
 ```
 
 ##### **symbol**() ➔ Option<String>
-Selector: `` - first 4 bytes of `blake2b_256("")`
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
   "args": [],
@@ -550,7 +550,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")`
 ```
 
 ##### **uri**(id: Id) ➔ Option<String>
-Selector: `0x7271b782` - first 4 bytes of `blake2b_256("PSP22Metadata::token_decimals")`
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
   "args": [
