@@ -473,7 +473,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
   ],
   "docs": [
     " Ensures that the smart contract allows reception of PSP30 token(s).",
-    " Returns `Ok(())` if the contract allows the reception of the token(s) and Error `TransferRejected(String))` otherwise.",
+    " Returns `Ok(())` if the contract allows the reception of the token(s) and Error `TransferRejected(String)` otherwise.",
     "",
     " This method will get called on every transfer to check whether the recipient in `transfer`",
     " or `transfer_from` is a contract, and if it is, does it accept tokens.",
@@ -565,7 +565,8 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
     }
   ],
   "docs": [
-    " Returns the Uniform Resource Identifier (URI) for `id` token."
+    " Returns the Uniform Resource Identifier (URI) for `id` token. It should point to a JSON file that conforms the `PSP30 Metadata JSON schema",
+    " Returns `None` if `id` token does not exist"
   ],
   "mutates": false,
   "name": [
@@ -582,6 +583,38 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
   "selector": "" // TO UPDATE WHEN PSP NUMBER
 }
 ```
+
+The `PSP30 Metadata JSON schema` reference
+ ```json
+{
+    "title": "Asset Metadata",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Identifies the asset to which this NFT represents",
+        },
+        "description": {
+            "type": "string",
+            "description": "Describes the asset to which this NFT represents",
+        },
+        "image": {
+            "type": "string",
+            "description": "A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive.",
+        },
+        "external_uri": {
+            "type": "string",
+            "description": "A URI pointing to a a externally hosted resources, usually the originating market place. Allows for 3rd party services to link to the originally NFT.",
+            "optional": true
+        },
+        "attributes": {
+            "type": "object",
+            "description": "Defines a set of attributes which classifies and defines the NFT. Allows for applications to build filters and attribute search functionalities for a set of NFTs.",
+            "optional": true
+        }
+    }
+}
+ ```
 
 ### Events
 
@@ -720,6 +753,41 @@ When a contract deletes (burns) tokens, `to` will be `None`.
     " The operator can manage all NFTs of the owner."
   ],
   "name": "ApprovalForAll"
+}
+```
+
+### URI
+```json
+{
+  "args": [
+    {
+      "docs": [],
+      "indexed": true,
+      "name": "value",
+      "type": {
+        "displayName": [
+          "string"
+        ],
+        "type": "string"
+      }
+    },
+    {
+      "docs": [],
+      "indexed": true,
+      "name": "id",
+      "type": {
+    "displayName": [
+      "Option"
+    ],
+    "type": "Option<Id>"
+      }
+    },
+  ],
+  "docs": [
+    " Event emitted when the URI is updated for a token `Id`.",
+    " The URI MUST point to a JSON file that conforms to the `PSP30 Metadata URI JSON Schema`."
+  ],
+  "name": "URI"
 }
 ```
 
@@ -865,7 +933,7 @@ enum PSP30Error {
     NotApproved,
     /// Returned if the owner already own the token.
     TokenExists,
-    /// Returned if  the token doesn't exist
+    /// Returned if the token doesn't exist
     TokenNotExists,
     /// Returned if safe transfer check fails
     SafeTransferCheckFailed(String),
