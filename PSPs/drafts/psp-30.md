@@ -334,8 +334,6 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
     "",
     " Returns `TokenNotExists` error if `id` is not exist.",
     "",
-    " Returns `NotApproved` error if `from` doesn't have allowance for transferring.",
-    "",
     " Returns `SafeTransferCheckFailed` error if `to` doesn't accept transfer."
   ],
   "mutates": true,
