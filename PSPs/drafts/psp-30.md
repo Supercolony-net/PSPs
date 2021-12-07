@@ -427,7 +427,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 `PSP30Receiver` is an interface for any contract that wants to support safe transfers from a PSP-30 token smart contract to avoid unexpected tokens in the balance of contract.
 This method is called before a transfer to ensure the recipient of the tokens acknowledges the receipt.
 
-##### **before_received**(operator: AccountId, from: AccountId, id: Id, data: [u8]) ➔ Result<(), PSP30ReceiverError>;
+##### **before_received**(operator: AccountId, from: AccountId, id: Id, data: [u8]) ➔ Result<(), PSP30ReceiverError>
 Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
@@ -534,7 +534,7 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
   ],
   "mutates": false,
   "name": [
-    "PSP22Metadata",
+    "PSP30Metadata",
     "symbol"
   ],
   "returnType": {
@@ -547,7 +547,50 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 }
 ```
 
-##### **uri**(id: Id) ➔ Option<String>
+##### **get_attribute**(id: Id, key: [u8]) ➔ Option<[u8]>
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
+```json
+{
+  "args": [
+    {
+      "name": "id",
+      "type": {
+        "displayName": [
+           "Id"
+        ],
+        "type": "Id"
+      }
+    },
+    {
+      "name": "key",
+      "type": {
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
+      }
+    }
+  ],
+  "docs": [
+    " Returns the attribute of token `id`  for the given `key`"
+  ],
+  "mutates": false,
+  "name": [
+    "PSP30Metadata",
+    "get_attribute"
+  ],
+  "payable": false,
+  "returnType": {
+    "displayName": [
+      "Option"
+    ],
+    "type": "Option<[u8]>"
+  },
+  "selector": ""
+}
+```
+
+##### **get_attributes**(id: Id) ➔ Option<Vec<u8>>
 Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
 ```json
 {
@@ -563,56 +606,130 @@ Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
     }
   ],
   "docs": [
-    " Returns the Uniform Resource Identifier (URI) for `id` token. It should point to a JSON file that conforms the `PSP30 Metadata JSON schema",
-    " Returns `None` if `id` token does not exist"
+    " Returns the attributes of token `id`."
   ],
   "mutates": false,
   "name": [
     "PSP30Metadata",
-    "uri"
+    "get_attributes"
   ],
   "payable": false,
   "returnType": {
     "displayName": [
       "Option"
     ],
-    "type": "Option<string>"
+    "type": "Option<[u8]>"
   },
-  "selector": "" // TO UPDATE WHEN PSP NUMBER
+  "selector": ""
 }
 ```
 
-The `PSP30 Metadata JSON schema` reference
- ```json
+##### **set_attribute**(id: Id, key: [u8], value: [u8]) ➔ Result<(), PSP30MetadataError>
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
+```json
 {
-    "title": "Asset Metadata",
-    "type": "object",
-    "properties": {
-        "name": {
-            "type": "string",
-            "description": "Identifies the asset to which this NFT represents",
-        },
-        "description": {
-            "type": "string",
-            "description": "Describes the asset to which this NFT represents",
-        },
-        "image": {
-            "type": "string",
-            "description": "A URI pointing to a resource with mime type image/* representing the asset to which this NFT represents. Consider making any images at a width between 320 and 1080 pixels and aspect ratio between 1.91:1 and 4:5 inclusive.",
-        },
-        "external_uri": {
-            "type": "string",
-            "description": "A URI pointing to a a externally hosted resources, usually the originating market place. Allows for 3rd party services to link to the originally NFT.",
-            "optional": true
-        },
-        "attributes": {
-            "type": "object",
-            "description": "Defines a set of attributes which classifies and defines the NFT. Allows for applications to build filters and attribute search functionalities for a set of NFTs.",
-            "optional": true
-        }
+  "args": [
+    {
+      "name": "id",
+      "type": {
+        "displayName": [
+           "Id"
+        ],
+        "type": "Id"
+      }
+    },
+    {
+      "name": "key",
+      "type": {
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
+      }
+    },
+    {
+      "name": "value",
+      "type": {
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
+      }
     }
+  ],
+  "docs": [
+    " Set an attribute for an token",
+    "",
+    " On success a `AttributeSet` event is emitted.",
+    "",
+    " # Errors",
+    "",
+    " Returns `NotApproved` error if caller is not owner of `id`."
+  ],
+  "mutates": true,
+  "name": [
+    "PSP30Metadata",
+    "set_attribute"
+  ],
+  "payable": false,
+  "returnType": {
+    "displayName": [
+      "Result"
+    ],
+    "type": 3
+  },
+  "selector": ""
 }
- ```
+```
+
+##### **set_attributes**(id: Id, key_values: [([u8], [u8])]) ➔ Result<(), PSP30MetadataError>
+Selector: `` - first 4 bytes of `blake2b_256("")` // TO UPDATE WHEN PSP NUMBER
+```json
+{
+  "args": [
+    {
+      "name": "id",
+      "type": {
+        "displayName": [
+           "Id"
+        ],
+        "type": "Id"
+      }
+    },
+    {
+      "name": "key_values",
+      "type": {
+        "displayName": [
+          "[([u8], [u8])]"
+        ],
+        "type": "[([u8], [u8])]"
+      }
+    }
+  ],
+  "docs": [
+    " Set attributes for an token",
+    "",
+    " On success a `AttributesSet` event is emitted.",
+    "",
+    " # Errors",
+    "",
+    " Returns `NotApproved` error if caller is not owner of `id`."
+  ],
+  "mutates": true,
+  "name": [
+    "PSP30Metadata",
+    "set_attributes"
+  ],
+  "payable": false,
+  "returnType": {
+    "displayName": [
+      "Result"
+    ],
+    "type": 3
+  },
+  "selector": ""
+}
+```
 
 ### Events
 
@@ -754,45 +871,95 @@ When a contract deletes (burns) tokens, `to` will be `None`.
 }
 ```
 
-### URI
+### AttributeSet
 ```json
 {
   "args": [
     {
       "docs": [],
-      "indexed": true,
-      "name": "value",
+      "indexed": false,
+      "name": "id",
       "type": {
         "displayName": [
-          "string"
+           "Id"
         ],
-        "type": "string"
+        "type": "Id"
       }
     },
     {
       "docs": [],
-      "indexed": true,
-      "name": "id",
+      "indexed": false,
+      "name": "key",
       "type": {
-    "displayName": [
-      "Option"
-    ],
-    "type": "Option<Id>"
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
       }
     },
+    {
+      "docs": [],
+      "indexed": false,
+      "name": "data",
+      "type": {
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
+      }
+    }
   ],
   "docs": [
-    " Event emitted when the URI is updated for a token `Id`.",
-    " The URI MUST point to a JSON file that conforms to the `PSP30 Metadata URI JSON Schema`."
+    " Event emitted when an attribute is set for a token.",
   ],
-  "name": "URI"
+  "name": "AttributeSet"
+}
+```
+
+### AttributesSet
+```json
+{
+  "args": [
+    {
+      "docs": [],
+      "indexed": false,
+      "name": "id",
+      "type": {
+        "displayName": [
+           "Id"
+        ],
+        "type": "Id"
+      }
+    },
+    {
+      "docs": [],
+      "indexed": false,
+      "name": "data",
+      "type": {
+        "displayName": [
+          "[u8]"
+        ],
+        "type": "[u8]"
+      }
+    }
+  ],
+  "docs": [
+    " Event emitted when attributes are set for a token.",
+  ],
+  "name": "AttributesSet"
 }
 ```
 
 ### Types
 ```rust
-// Id is a 32 bytes Array.
-type Id = [u8; 32];
+// Id is an Enum and its variant are types
+type Id = {
+            "u16",
+            "u32",
+            "u64",
+            "u128",
+            "[u8]"
+           };
 
 // AccountId is a 32 bytes Array, like in Substrate-based blockchains.
 type AccountId = [u8; 32];
@@ -913,6 +1080,48 @@ type AccountId = [u8; 32];
           ]
         }
       }
+    },
+    "3": {
+      "def": {
+        "variant": {
+          "variants": [
+            {
+              "fields": [
+                {
+                  "type": {
+                    "def": {
+                      "tuple": []
+                    }
+                  }
+                }
+              ],
+              "name": "Ok"
+            },
+            {
+              "fields": [
+                {
+                "type": {
+                  "def": {
+                    "variant": {
+                      "variants": [
+                        {
+                          "index": 0,
+                          "name": "NotApproved"
+                        }
+                      ]
+                    }
+                  },
+                  "path": [
+                    "PSP30MetadataError"
+                  ]
+                 }
+                }
+              ],
+              "name": "Err"
+            }
+          ]
+        }
+      }
     }
   }
 }
@@ -941,6 +1150,10 @@ enum PSP30ReceiverError {
     /// Returned if transfer is rejected.
     TransferRejected(String),
 }
+
+enum PSP30MetadataError {
+    /// Returned if the caller is not the owner of the token.
+    NotApproved
 ```
 
 ## Copyright
